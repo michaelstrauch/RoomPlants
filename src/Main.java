@@ -3,17 +3,13 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
 
-
-        Plant plant;
+        PlantManager list1 = new PlantManager();
 
         try {
-           Plant plant1 = new Plant("something");
+            list1.importFromFile();
         } catch (PlantException e) {
-            throw new PlantException();
+            System.err.println("Soubor neexistuje");;
         }
-        plant1.
-
-
 
     }
 }

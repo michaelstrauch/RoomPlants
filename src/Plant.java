@@ -54,7 +54,7 @@ public class Plant {
     }
 
     public void setWatering(LocalDate watering) throws PlantException {
-        if(watering.isBefore(planted)) {
+        if(planted.isAfter(watering)) {
             throw new PlantException("Zálivka nemůže být před datem zasazení("+ getPlanted()+") "+"Zadáno: "+ watering);
         }
         this.watering = watering;
