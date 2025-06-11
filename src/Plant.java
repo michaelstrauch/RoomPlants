@@ -1,6 +1,4 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Plant {
    private String name;
@@ -54,7 +52,7 @@ public class Plant {
     }
 
     public void setWatering(LocalDate watering) throws PlantException {
-        if(planted.isAfter(watering)) {
+        if(watering.isBefore(planted)) {
             throw new PlantException("Zálivka nemůže být před datem zasazení("+ getPlanted()+") "+"Zadáno: "+ watering);
         }
         this.watering = watering;
@@ -72,10 +70,32 @@ public class Plant {
     }
 
     public String getWateringInfo() {
-        return getName() +" "+ getWatering() +" "+ getWatering().plusDays(getWateringFrequency());
+        return getName() +" | Datum poslední zálivky: "+ getWatering() +" | Datum další zálivky: "+ getWatering().plusDays(getWateringFrequency());
     }
 
     public void doWateringNow() throws PlantException {
         setWatering(LocalDate.now());
+    }
+
+
+    public String getCzechDeclension(int wateringFrequency) {
+       String frequencyDays = "";
+        if (wateringFrequency == 1) {
+            frequencyDays = wateringFrequency +" den.";
+        } else if (wateringFrequency <= 4) {
+            frequencyDays = wateringFrequency + " dny.";
+        } else {
+            frequencyDays = wateringFrequency + " dní.";
+        }
+        return frequencyDays;
+    }
+
+    @Override
+    public String toString() {
+        return  "Název: "+ name +" | "+
+                "Poznámky: "+ notes +" | "+
+                "Zasazeno: " + planted +" | "+
+                "Poslední zálivka: "+ watering +" | " +
+                "Frekvence zálivky: "+ getCzechDeclension(wateringFrequency);
     }
 }
